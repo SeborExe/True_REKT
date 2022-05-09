@@ -966,6 +966,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d04f9902fcda1741b431c5e7f614726, type: 3}
+--- !u!1 &3549456744861624125 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1111172808108381053, guid: 2d04f9902fcda1741b431c5e7f614726, type: 3}
+  m_PrefabInstance: {fileID: 3549456744861624124}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3549456744861624126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3549456744861624125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77bb8bf786438144081fb7e23e3f275c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeaponModel: {fileID: 0}
 --- !u!114 &5866666020853075315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -978,6 +996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be03253067f26c7408b56897ae94b705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!114 &5866666020853075316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -990,6 +1009,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6a826c839b5d7409c67a856a6b94f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPerformingAction: 0
+  isPerformingQuickTurn: 0
+  disableRootMotion: 0
 --- !u!114 &5866666020853075317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1006,6 +1028,8 @@ MonoBehaviour:
   horizontalMovementInput: 0
   verticalCameraInput: 0
   horizontalCameraInput: 0
+  runInput: 0
+  quickTurnInput: 0
 --- !u!136 &5866666020853075318
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1048,5 +1072,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517c863628f5db242900dacc3019f434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerRigidbody: {fileID: 0}
   cameraHolderTransform: {fileID: 979055959}
   rotationSpeed: 3.5
+  quickTurnSpeed: 8
+--- !u!114 &5866666020853075323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148064112050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a218d57b4917d8541afa0d84e092b2c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 11400000, guid: 5466cd6b2c159e9499e7b009c5196acc, type: 2}
