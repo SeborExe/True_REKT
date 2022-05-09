@@ -13,7 +13,7 @@ public class AnimationManager : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void HandleAnimatorValues(float horizontalMovement, float verticalMovement)
+    public void HandleAnimatorValues(float horizontalMovement, float verticalMovement, bool isRunning)
     {
         #region snapping values
         if (horizontalMovement > 0)
@@ -34,6 +34,11 @@ public class AnimationManager : MonoBehaviour
         else
             snappedVertical = 0;
         #endregion
+
+        if (isRunning && snappedVertical > 0)
+        {
+            snappedVertical = 2;
+        }
 
         animator.SetFloat("Horizontal", snappedHorizontal, 0.1f, Time.deltaTime);
         animator.SetFloat("Vertical", snappedVertical, 0.1f, Time.deltaTime);

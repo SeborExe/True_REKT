@@ -17,6 +17,9 @@ public class InputManager : MonoBehaviour
     public float horizontalCameraInput;
     Vector2 cameraInput;
 
+    [Header("Button inputs")]
+    public bool runInput;
+
     private void Awake()
     {
         animationManager = GetComponent<AnimationManager>();
@@ -29,6 +32,8 @@ public class InputManager : MonoBehaviour
             playerControls = new PlayerControls();
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
             playerControls.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
+            playerControls.PlayerMovement.Run.performed += i => runInput = true;
+            playerControls.PlayerMovement.Run.canceled += i => runInput = false;
         }
 
         playerControls.Enable();
@@ -49,7 +54,7 @@ public class InputManager : MonoBehaviour
     {
         horizontalMovementInput = movementInput.x;
         verticalMovementInput = movementInput.y;
-        animationManager.HandleAnimatorValues(horizontalMovementInput, verticalMovementInput);
+        animationManager.HandleAnimatorValues(horizontalMovementInput, verticalMovementInput, runInput);
     }
 
     private void HandleCameraInput()
