@@ -6,6 +6,8 @@ public class InputManager : MonoBehaviour
 {
     PlayerControls playerControls;
     AnimationManager animationManager;
+    PlayerManager playerManager;
+    Animator anim;
 
     [Header("Player Movement")]
     public float verticalMovementInput;
@@ -19,10 +21,13 @@ public class InputManager : MonoBehaviour
 
     [Header("Button inputs")]
     public bool runInput;
+    public bool quickTurnInput;
 
     private void Awake()
     {
         animationManager = GetComponent<AnimationManager>();
+        playerManager = GetComponent<PlayerManager>();
+        anim = GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -34,6 +39,7 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
             playerControls.PlayerMovement.Run.performed += i => runInput = true;
             playerControls.PlayerMovement.Run.canceled += i => runInput = false;
+            playerControls.PlayerMovement.QuickTurn.performed += i => quickTurnInput = true;
         }
 
         playerControls.Enable();
@@ -48,6 +54,7 @@ public class InputManager : MonoBehaviour
     {
         HandleMovementInput();
         HandleCameraInput();
+        HandleQuickTurnInput();
     }
 
     private void HandleMovementInput()
@@ -61,5 +68,16 @@ public class InputManager : MonoBehaviour
     {
         horizontalCameraInput = cameraInput.x;
         verticalCameraInput = cameraInput.y;
+    }
+
+    private void HandleQuickTurnInput()
+    {
+        if (playerManager.isPerformingAction) return;
+
+        if (quickTurnInput)
+        {
+            anim.SetBool("isPerformingQuickTurn", true);
+            animationManager.PlayAnimationWithOutRootMotion("Quick Turn", true);
+        }
     }
 }

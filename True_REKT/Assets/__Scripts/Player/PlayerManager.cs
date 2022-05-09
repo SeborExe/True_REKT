@@ -7,17 +7,28 @@ public class PlayerManager : MonoBehaviour
     PlayerCamera playerCamera;
     InputManager inputManager;
     PlayerLocomotionManager playerLocomotionManager;
+    Animator anim;
+
+    [Header("Flags")]
+    public bool isPerformingAction;
+    public bool isPerformingQuickTurn;
+    public bool disableRootMotion;
 
     private void Awake()
     {
         playerCamera = FindObjectOfType<PlayerCamera>();
         inputManager = GetComponent<InputManager>();
         playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
     {
         inputManager.HandleAllInputs();
+
+        isPerformingAction = anim.GetBool("isPerformingAction");
+        isPerformingQuickTurn = anim.GetBool("isPerformingQuickTurn");
+        disableRootMotion = anim.GetBool("disableRootMotion");
     }
 
     private void FixedUpdate()
