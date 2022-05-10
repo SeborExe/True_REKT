@@ -20,7 +20,8 @@ public class PlayerCamera : MonoBehaviour
     Quaternion targetRotation;
 
     [Header("Camera Speeds")]
-    float cameraSmoothTime = 0.2f;
+    [SerializeField] float cameraSmoothTime = 0.2f;
+    [SerializeField] float aimedSmoothTime = 3f;
 
     float lookAmountVertical;
     float lookAmountHorizontal;
@@ -70,13 +71,13 @@ public class PlayerCamera : MonoBehaviour
             cameraRotation = Vector3.zero;
             cameraRotation.y = lookAmountVertical;
             targetRotation = Quaternion.Euler(cameraRotation);
-            targetRotation = Quaternion.Slerp(transform.rotation, targetRotation, cameraSmoothTime);
+            targetRotation = Quaternion.Slerp(transform.rotation, targetRotation, aimedSmoothTime);
             transform.rotation = targetRotation;
 
             cameraRotation = Vector3.zero;
             cameraRotation.x = lookAmountHorizontal;
             targetRotation = Quaternion.Euler(cameraRotation);
-            targetRotation = Quaternion.Slerp(cameraPivot.localRotation, targetRotation, cameraSmoothTime);
+            targetRotation = Quaternion.Slerp(cameraPivot.localRotation, targetRotation, aimedSmoothTime);
             cameraObject.transform.localRotation = targetRotation;
         }
         else

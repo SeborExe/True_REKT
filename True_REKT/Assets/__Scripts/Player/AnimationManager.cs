@@ -6,8 +6,15 @@ using UnityEngine.Animations.Rigging;
 public class AnimationManager : MonoBehaviour
 {
     public Animator animator;
+
+    [Header("Hand IK")]
     public TwoBoneIKConstraint rightHandIK;
     public TwoBoneIKConstraint leftHandIK;
+
+    [Header("Aiming constrains")]
+    public MultiAimConstraint spine01;
+    public MultiAimConstraint spine02;
+    public MultiAimConstraint head;
 
     PlayerLocomotionManager playerLocomotionManager;
     PlayerManager playerManager;
@@ -68,6 +75,22 @@ public class AnimationManager : MonoBehaviour
         rightHandIK.data.target = rightTarget.transform;
         leftHandIK.data.target = leftTarget.transform;
         rigBuilder.Build();
+    }
+
+    public void UpdateAimConstrains()
+    {
+        if (playerManager.isAiming)
+        {
+            spine01.weight = 0.9f;
+            spine02.weight = 0.9f;
+            head.weight = 0.7f;
+        }
+        else
+        {
+            spine01.weight = 0f;
+            spine02.weight = 0f;
+            head.weight = 0f;
+        }
     }
 
     private void OnAnimatorMove()

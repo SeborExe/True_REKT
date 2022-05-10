@@ -8,6 +8,7 @@ public class InputManager : MonoBehaviour
     AnimationManager animationManager;
     PlayerManager playerManager;
     Animator anim;
+    PlayerUIManager playerUIManager;
 
     [Header("Player Movement")]
     public float verticalMovementInput;
@@ -29,6 +30,7 @@ public class InputManager : MonoBehaviour
         animationManager = GetComponent<AnimationManager>();
         playerManager = GetComponent<PlayerManager>();
         anim = GetComponent<Animator>();
+        playerUIManager = FindObjectOfType<PlayerUIManager>();
     }
 
     private void OnEnable()
@@ -106,16 +108,21 @@ public class InputManager : MonoBehaviour
         {
             aimingInput = false;
             anim.SetBool("isAiming", false);
+            playerUIManager.crosshair.SetActive(false);
             return;
         }
 
         if (aimingInput)
         {
             anim.SetBool("isAiming", true);
+            playerUIManager.crosshair.SetActive(true);
         }
         else
         {
             anim.SetBool("isAiming", false);
+            playerUIManager.crosshair.SetActive(false);
         }
+
+        animationManager.UpdateAimConstrains();
     }
 }
