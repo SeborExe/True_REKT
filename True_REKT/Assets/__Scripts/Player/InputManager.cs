@@ -62,6 +62,17 @@ public class InputManager : MonoBehaviour
         horizontalMovementInput = movementInput.x;
         verticalMovementInput = movementInput.y;
         animationManager.HandleAnimatorValues(horizontalMovementInput, verticalMovementInput, runInput);
+
+        if (verticalMovementInput != 0 || horizontalMovementInput != 0)
+        {
+            animationManager.rightHandIK.weight = 0;
+            animationManager.leftHandIK.weight = 0;
+        }
+        else
+        {
+            animationManager.rightHandIK.weight = 1;
+            animationManager.leftHandIK.weight = 1;
+        }
     }
 
     private void HandleCameraInput()

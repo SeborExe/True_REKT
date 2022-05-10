@@ -10,6 +10,8 @@ public class PlayerEquipmentManager : MonoBehaviour
     [Header("Current equipment")]
     public WeaponItem weapon;
     //public SubWeaponItem subWeapon;
+    RightHandIKTarget rightHandIK;
+    LeftHandIKTarget leftHandIK;
 
     private void Awake()
     {
@@ -33,5 +35,8 @@ public class PlayerEquipmentManager : MonoBehaviour
     {
         weaponLoaderSlot.LoadWeaponModel(weapon);
         animationManager.animator.runtimeAnimatorController = weapon.weaponAnimator;
+        rightHandIK = weaponLoaderSlot.currentWeaponModel.GetComponentInChildren<RightHandIKTarget>();
+        leftHandIK = weaponLoaderSlot.currentWeaponModel.GetComponentInChildren<LeftHandIKTarget>();
+        animationManager.AssignHandIK(rightHandIK, leftHandIK);
     }
 }
