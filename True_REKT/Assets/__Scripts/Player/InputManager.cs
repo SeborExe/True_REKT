@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour
     [Header("Button inputs")]
     public bool runInput;
     public bool quickTurnInput;
+    public bool aimingInput;
 
     private void Awake()
     {
@@ -35,11 +36,17 @@ public class InputManager : MonoBehaviour
         if (playerControls == null)
         {
             playerControls = new PlayerControls();
+
+            //Player Movement Inputs
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
             playerControls.PlayerMovement.Camera.performed += i => cameraInput = i.ReadValue<Vector2>();
             playerControls.PlayerMovement.Run.performed += i => runInput = true;
             playerControls.PlayerMovement.Run.canceled += i => runInput = false;
             playerControls.PlayerMovement.QuickTurn.performed += i => quickTurnInput = true;
+
+            //Player Action Inputs
+            playerControls.PlayerActions.Aim.performed += i => aimingInput = true;
+            playerControls.PlayerActions.Aim.canceled += i => aimingInput = false; 
         }
 
         playerControls.Enable();
@@ -55,6 +62,7 @@ public class InputManager : MonoBehaviour
         HandleMovementInput();
         HandleCameraInput();
         HandleQuickTurnInput();
+        HandleAimInput();
     }
 
     private void HandleMovementInput()
@@ -89,6 +97,25 @@ public class InputManager : MonoBehaviour
         {
             anim.SetBool("isPerformingQuickTurn", true);
             animationManager.PlayAnimationWithOutRootMotion("Quick Turn", true);
+        }
+    }
+
+    private void HandleAimInput()
+    {
+        if (verticalMovementInput != 0 || horizontalMovementInput != 0)
+        {
+            aimingInput = false;
+            anim.SetBool("isAiming", false);
+            return;
+        }
+
+        if (aimingInput)
+        {
+            anim.SetBool("isAiming", true);
+        }
+        else
+        {
+            anim.SetBool("isAiming", false);
         }
     }
 }

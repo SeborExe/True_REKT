@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviour
     public bool isPerformingAction;
     public bool isPerformingQuickTurn;
     public bool disableRootMotion;
+    public bool isAiming;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class PlayerManager : MonoBehaviour
         isPerformingAction = anim.GetBool("isPerformingAction");
         isPerformingQuickTurn = anim.GetBool("isPerformingQuickTurn");
         disableRootMotion = anim.GetBool("disableRootMotion");
+        isAiming = anim.GetBool("isAiming");
     }
 
     private void FixedUpdate()
