@@ -1,12 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class AnimationManager : MonoBehaviour
 {
-    Animator animator;
+    public Animator animator;
+
+    [Header("Hand IK")]
+    public TwoBoneIKConstraint rightHandIK;
+    public TwoBoneIKConstraint leftHandIK;
+
+    [Header("Aiming constrains")]
+    public MultiAimConstraint spine01;
+    public MultiAimConstraint spine02;
+    public MultiAimConstraint head;
+
     PlayerLocomotionManager playerLocomotionManager;
     PlayerManager playerManager;
+    RigBuilder rigBuilder;
 
     float snappedHorizontal;
     float snappedVertical;
@@ -16,6 +28,7 @@ public class AnimationManager : MonoBehaviour
         animator = GetComponent<Animator>();
         playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
         playerManager = GetComponent<PlayerManager>();
+        rigBuilder = GetComponent<RigBuilder>();
     }
 
     public void PlayAnimationWithOutRootMotion(string targetAnimation, bool isPerformingAction)
@@ -55,6 +68,29 @@ public class AnimationManager : MonoBehaviour
 
         animator.SetFloat("Horizontal", snappedHorizontal, 0.1f, Time.deltaTime);
         animator.SetFloat("Vertical", snappedVertical, 0.1f, Time.deltaTime);
+    }
+
+    public void AssignHandIK(RightHandIKTarget rightTarget, LeftHandIKTarget leftTarget)
+    {
+        rightHandIK.data.target = rightTarget.transform;
+        leftHandIK.data.target = leftTarget.transform;
+        rigBuilder.Build();
+    }
+
+    public void UpdateAimConstrains()
+    {
+        if (playerManager.isAiming)
+        {
+            spine01.weight = 0.9f;
+            spine02.weight = 0.9f;
+            head.weight = 0.7f;
+        }
+        else
+        {
+            spine01.weight = 0f;
+            spine02.weight = 0f;
+            head.weight = 0f;
+        }
     }
 
     private void OnAnimatorMove()

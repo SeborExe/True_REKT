@@ -7,12 +7,15 @@ public class PlayerManager : MonoBehaviour
     PlayerCamera playerCamera;
     InputManager inputManager;
     PlayerLocomotionManager playerLocomotionManager;
+    PlayerEquipmentManager playerEquipmentManager;
+    AnimationManager animationManager;
     Animator anim;
 
     [Header("Flags")]
     public bool isPerformingAction;
     public bool isPerformingQuickTurn;
     public bool disableRootMotion;
+    public bool isAiming;
 
     private void Awake()
     {
@@ -20,6 +23,8 @@ public class PlayerManager : MonoBehaviour
         inputManager = GetComponent<InputManager>();
         playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
         anim = GetComponent<Animator>();
+        playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
+        animationManager = GetComponent<AnimationManager>();
     }
 
     private void Update()
@@ -29,6 +34,7 @@ public class PlayerManager : MonoBehaviour
         isPerformingAction = anim.GetBool("isPerformingAction");
         isPerformingQuickTurn = anim.GetBool("isPerformingQuickTurn");
         disableRootMotion = anim.GetBool("disableRootMotion");
+        isAiming = anim.GetBool("isAiming");
     }
 
     private void FixedUpdate()
@@ -39,5 +45,13 @@ public class PlayerManager : MonoBehaviour
     private void LateUpdate()
     {
         playerCamera.HandleAllCameraMovement();
+    }
+
+    public void UseCurrentWeapon()
+    {
+        if (isPerformingAction) return;
+
+        animationManager.PlayAnimationWithOutRootMotion("Pistol_Shoot", true);
+        playerEquipmentManager.weaponAnimator.ShootWeapon(playerCamera);
     }
 }
