@@ -136,7 +136,7 @@ public class InputManager : MonoBehaviour
         if (shootInput && aimingInput)
         {
             shootInput = false;
-            //shoot current weapon
+            playerManager.UseCurrentWeapon();
         }
     }
 }
