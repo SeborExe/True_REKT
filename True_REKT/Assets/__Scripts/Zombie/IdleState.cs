@@ -12,6 +12,11 @@ public class IdleState : State
     [SerializeField] float minimumDetectionRadius = -45f;
     [SerializeField] float maximumDetectionRadius = 45f;
 
+    //This just make raycast not start on floor
+    [Header("Line of sight detection")]
+    [SerializeField] float characterEyeLevel = 1.55f;
+    [SerializeField] LayerMask ignoreForLineOfSight;
+
     //Idle until find potential target
     //If a target is found we proceed to the pursue target else stay in idle state
 
@@ -52,14 +57,12 @@ public class IdleState : State
                 if (viewableAngle > minimumDetectionRadius && viewableAngle < maximumDetectionRadius)
                 {
                     RaycastHit hit;
-                    //This just make raycast not start on floor
-                    float characterHeight = 1.8f;
-                    Vector3 playerStartPosition = new Vector3(player.transform.position.x, characterHeight, player.transform.position.z);
-                    Vector3 zombieStartPosition = new Vector3(transform.position.x, characterHeight, transform.position.z);
+                    Vector3 playerStartPosition = new Vector3(player.transform.position.x, characterEyeLevel, player.transform.position.z);
+                    Vector3 zombieStartPosition = new Vector3(transform.position.x, characterEyeLevel, transform.position.z);
 
                     Debug.DrawLine(playerStartPosition, zombieStartPosition, Color.yellow);
 
-                    if (Physics.Linecast(playerStartPosition, zombieStartPosition, out hit))
+                    if (Physics.Linecast(playerStartPosition, zombieStartPosition, out hit, ignoreForLineOfSight))
                     {
                         //Cannot find player
                     }
