@@ -5,7 +5,7 @@ using UnityEngine;
 public class State : MonoBehaviour
 {
     //Base class for all future states
-    public virtual State Tick()
+    public virtual State Tick(ZombieManager zombieManager)
     {
         Debug.Log("Running State");
         return this;

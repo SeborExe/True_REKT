@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class ZombieManager : MonoBehaviour
 {
-    public IdleState startingState;
     [SerializeField] State currentState;
+
+    public IdleState startingState;
+    public PlayerManager currentTarget;
 
     private void Awake()
     {
@@ -22,7 +24,7 @@ public class ZombieManager : MonoBehaviour
 
         if (currentState != null)
         {
-            nextState = currentState.Tick();
+            nextState = currentState.Tick(this);
 
             if (nextState != null) currentState = nextState;
         }
