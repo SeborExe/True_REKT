@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponAnimatorManager : MonoBehaviour
 {
     Animator animator;
+    AudioSource audioSource;
 
     [Header("Weapon effects")]
     public GameObject weaponMuzzleFlashFX;
@@ -17,11 +18,13 @@ public class WeaponAnimatorManager : MonoBehaviour
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void ShootWeapon(PlayerCamera playerCamera)
     {
         animator.Play("Shoot");
+        audioSource.Play();
 
         GameObject muzzleFlash = Instantiate(weaponMuzzleFlashFX, weaponMuzzleFlashTransform);
         muzzleFlash.transform.parent = null;
