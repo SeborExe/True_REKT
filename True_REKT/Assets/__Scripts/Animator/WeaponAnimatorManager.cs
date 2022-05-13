@@ -6,6 +6,7 @@ public class WeaponAnimatorManager : MonoBehaviour
 {
     Animator animator;
     AudioSource audioSource;
+    PlayerManager playerManager;
 
     [Header("Weapon effects")]
     public GameObject weaponMuzzleFlashFX;
@@ -25,6 +26,7 @@ public class WeaponAnimatorManager : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         audioSource = GetComponent<AudioSource>();
+        playerManager = GetComponentInParent<PlayerManager>();
     }
 
     public void ShootWeapon(PlayerCamera playerCamera)
@@ -48,27 +50,27 @@ public class WeaponAnimatorManager : MonoBehaviour
             {
                 if (hit.collider.gameObject.layer == 8)
                 {
-                    zombie.DamageZombieHead();
+                    zombie.DamageZombieHead(playerManager.playerEquipmentManager.weapon.damage);
                 }
                 else if (hit.collider.gameObject.layer == 9)
                 {
-                    zombie.DamageZombieTorso();
+                    zombie.DamageZombieTorso(playerManager.playerEquipmentManager.weapon.damage);
                 }
                 else if (hit.collider.gameObject.layer == 10)
                 {
-                    zombie.DamageZombieRightArm();
+                    zombie.DamageZombieRightArm(playerManager.playerEquipmentManager.weapon.damage);
                 }
                 else if (hit.collider.gameObject.layer == 11)
                 {
-                    zombie.DamageZombieLeftArm();
+                    zombie.DamageZombieLeftArm(playerManager.playerEquipmentManager.weapon.damage);
                 }
                 else if (hit.collider.gameObject.layer == 12)
                 {
-                    zombie.DamageZombieRightLeg();
+                    zombie.DamageZombieRightLeg(playerManager.playerEquipmentManager.weapon.damage);
                 }
                 else if (hit.collider.gameObject.layer == 13)
                 {
-                    zombie.DamageZombieLeftLeg();
+                    zombie.DamageZombieLeftLeg(playerManager.playerEquipmentManager.weapon.damage);
                 }
             }
         }

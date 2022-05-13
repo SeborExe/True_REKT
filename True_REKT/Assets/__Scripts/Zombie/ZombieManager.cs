@@ -10,9 +10,12 @@ public class ZombieManager : MonoBehaviour
     public IdleState startingState;
     public PlayerManager currentTarget;
     public Rigidbody zombieRigidbody;
+    public ZombieAnimatorManager zombieAnimatorManager;
+    public ZombieStatsManager zombieStatsManager;
 
     [Header("Flags")]
     public bool isPerformingAction;
+    public bool isDead;
 
     [Header("Typical dynamic")]
     public Animator animator;
@@ -21,9 +24,13 @@ public class ZombieManager : MonoBehaviour
     [Header("Locomotions")]
     public float rotationSpeed = 5f;
     public float distanceFromCurrentTarget;
+    public float wiewableAngleFromCurrentTarget;
+    public Vector3 targetsDirections;
 
     [Header("Attack")]
-    public float minimumAttackDistance = 1f;
+    public float minimumAttackDistance = 0.5f; //Set this to your minimum distance of shortest zombie attack
+    public float maximumAttackDistance = 2f;   //Set this to your maximum distance of longest zombie attack
+    public float attackCooldownTimer;
 
     private void Awake()
     {
@@ -31,19 +38,32 @@ public class ZombieManager : MonoBehaviour
         zombieNavMeshAgent = GetComponentInChildren<NavMeshAgent>();
         animator = GetComponent<Animator>();
         zombieRigidbody = GetComponent<Rigidbody>();
+        zombieAnimatorManager = GetComponent<ZombieAnimatorManager>();
+        zombieStatsManager = GetComponent<ZombieStatsManager>();
     }
 
     private void FixedUpdate()
     {
-        HandleStateMachine();
+        if (!isDead)
+        {
+            HandleStateMachine();
+        }
+
     }
 
     private void Update()
     {
         zombieNavMeshAgent.transform.localPosition = Vector3.zero;
 
+        if (attackCooldownTimer > 0)
+        {
+            attackCooldownTimer = attackCooldownTimer - Time.deltaTime;
+        }
+
         if (currentTarget != null)
         {
+            targetsDirections = currentTarget.transform.position - transform.position;
+            wiewableAngleFromCurrentTarget = Vector3.SignedAngle(targetsDirections, transform.forward, Vector3.up);
             distanceFromCurrentTarget = Vector3.Distance(currentTarget.transform.position, transform.position);
         }
     }
