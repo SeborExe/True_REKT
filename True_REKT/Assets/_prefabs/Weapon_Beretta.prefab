@@ -94,6 +94,10 @@ MonoBehaviour:
   weaponBulletCaseFX: {fileID: 0}
   weaponMuzzleFlashTransform: {fileID: 8765397068222308522}
   weaponBulletCaseTransform: {fileID: 4293236898948485117}
+  bulletRange: 100
+  shootableLayers:
+    serializedVersion: 2
+    m_Bits: 16129
 --- !u!82 &5117528750975114083
 AudioSource:
   m_ObjectHideFlags: 0

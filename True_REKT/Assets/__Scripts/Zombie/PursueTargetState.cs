@@ -13,6 +13,12 @@ public class PursueTargetState : State
 
     public override State Tick(ZombieManager zombieManager)
     {
+        if (zombieManager.isPerformingAction)
+        {
+            zombieManager.animator.SetFloat("Vertical", 0, 0.2f, Time.deltaTime);
+            return this;
+        }
+
         //LOGIC to follow player
         MoveTowardsCurrentTarget(zombieManager);
         RotateTowardsTarget(zombieManager);

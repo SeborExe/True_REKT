@@ -11,6 +11,9 @@ public class ZombieManager : MonoBehaviour
     public PlayerManager currentTarget;
     public Rigidbody zombieRigidbody;
 
+    [Header("Flags")]
+    public bool isPerformingAction;
+
     [Header("Typical dynamic")]
     public Animator animator;
     public NavMeshAgent zombieNavMeshAgent;
