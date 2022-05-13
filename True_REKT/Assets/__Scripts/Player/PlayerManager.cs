@@ -7,9 +7,10 @@ public class PlayerManager : MonoBehaviour
     PlayerCamera playerCamera;
     InputManager inputManager;
     PlayerLocomotionManager playerLocomotionManager;
-    PlayerEquipmentManager playerEquipmentManager;
     AnimationManager animationManager;
     Animator anim;
+
+    public PlayerEquipmentManager playerEquipmentManager;
 
     [Header("Flags")]
     public bool isPerformingAction;

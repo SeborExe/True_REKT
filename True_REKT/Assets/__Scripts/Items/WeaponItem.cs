@@ -7,4 +7,7 @@ public class WeaponItem : Item
 {
     [Header("Weapon animation")]
     public AnimatorOverrideController weaponAnimator;
+
+    [Header("Damage")]
+    public int damage = 20;
 }
