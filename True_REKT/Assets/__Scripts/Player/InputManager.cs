@@ -25,6 +25,7 @@ public class InputManager : MonoBehaviour
     public bool quickTurnInput;
     public bool aimingInput;
     public bool shootInput;
+    public bool reloadInput;
 
     private void Awake()
     {
@@ -52,6 +53,7 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Aim.canceled += i => aimingInput = false; 
             playerControls.PlayerActions.Shoot.performed += i => shootInput = true;
             playerControls.PlayerActions.Shoot.canceled += i => shootInput = false;
+            playerControls.PlayerActions.Reload.performed += i => reloadInput = true;
         }
 
         playerControls.Enable();
@@ -69,6 +71,7 @@ public class InputManager : MonoBehaviour
         HandleQuickTurnInput();
         HandleAimInput();
         HandleShootingInput();
+        HandleReloadInput();
     }
 
     private void HandleMovementInput()
@@ -137,6 +140,26 @@ public class InputManager : MonoBehaviour
         {
             shootInput = false;
             playerManager.UseCurrentWeapon();
+        }
+    }
+
+    private void HandleReloadInput()
+    {
+        if (playerManager.isPerformingAction) return;
+
+        if (reloadInput)
+        {
+            reloadInput = false;
+
+            if (playerManager.playerEquipmentManager.weapon.remainingAmmo == playerManager.playerEquipmentManager.weapon.maxAmmo) return;
+
+            playerManager.animationManager.ClearHandIKWeights();
+            playerManager.animationManager.PlayAnimation("Reloading", true);
+
+            //Replace in future when equipment were finished.
+            playerManager.playerEquipmentManager.weapon.remainingAmmo = 12;
+            playerManager.PlayClip(1);
+            playerManager.playerUIManager.currentAmmoCountText.text = playerManager.playerEquipmentManager.weapon.remainingAmmo.ToString();
         }
     }
 }
