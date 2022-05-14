@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    PlayerLocomotionManager playerLocomotionManager;
-    PlayerCamera playerCamera;
-
     InputManager inputManager;
 
     AudioSource audioSource;
@@ -17,8 +14,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] AudioClip[] audioClips;
 
     [Header("Typical dynamic")]
+    public PlayerLocomotionManager playerLocomotionManager;
+    public PlayerCamera playerCamera;
     public AnimationManager animationManager;
     public PlayerEquipmentManager playerEquipmentManager;
+    public PlayerInventoryManager playerInventoryManager;
 
     [Header("Flags")]
     public bool isPerformingAction;
@@ -35,6 +35,7 @@ public class PlayerManager : MonoBehaviour
         playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
         animationManager = GetComponent<AnimationManager>();
         audioSource = GetComponent<AudioSource>();
+        playerInventoryManager = GetComponent<PlayerInventoryManager>();
     }
 
     private void Update()

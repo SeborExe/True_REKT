@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class PlayerInventoryManager : MonoBehaviour
 {
-    
+    public BoxOfAmmoItem currentAmmoInInventory;
 }

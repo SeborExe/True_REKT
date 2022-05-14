@@ -41,5 +41,13 @@ public class PlayerEquipmentManager : MonoBehaviour
         leftHandIK = weaponLoaderSlot.currentWeaponModel.GetComponentInChildren<LeftHandIKTarget>();
         playerManager.animationManager.AssignHandIK(rightHandIK, leftHandIK);
         playerManager.playerUIManager.currentAmmoCountText.text = weapon.remainingAmmo.ToString();
+
+        if (playerManager.playerInventoryManager.currentAmmoInInventory != null)
+        {
+            if (playerManager.playerInventoryManager.currentAmmoInInventory.ammoType == weapon.ammoType)
+            {
+                playerManager.playerUIManager.reserveAmmoCountText.text = playerManager.playerInventoryManager.currentAmmoInInventory.ammoRemaining.ToString();
+            }
+        }
     }
 }

@@ -17,3 +17,5 @@ MonoBehaviour:
   weaponAnimator: {fileID: 22100000, guid: 135bffeef5e9816469b4a0ce12773f98, type: 2}
   damage: 20
   remainingAmmo: 12
+  maxAmmo: 12
+  ammoType: 0
