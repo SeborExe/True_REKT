@@ -15,3 +15,7 @@ MonoBehaviour:
   name: Beretta
   itemModel: {fileID: 607257821382187225, guid: 3a8fe63dc9f50d044a43a23947bc304a, type: 3}
   weaponAnimator: {fileID: 22100000, guid: 135bffeef5e9816469b4a0ce12773f98, type: 2}
+  damage: 20
+  remainingAmmo: 12
+  maxAmmo: 12
+  ammoType: 0

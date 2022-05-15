@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    PlayerCamera playerCamera;
-    InputManager inputManager;
-    PlayerLocomotionManager playerLocomotionManager;
-    AnimationManager animationManager;
+    AudioSource audioSource;
     Animator anim;
+    
+    public PlayerUIManager playerUIManager;
 
+    [SerializeField] AudioClip[] audioClips;
+
+    [Header("Typical dynamic")]
+    public InputManager inputManager;
+    public PlayerLocomotionManager playerLocomotionManager;
+    public PlayerCamera playerCamera;
+    public AnimationManager animationManager;
     public PlayerEquipmentManager playerEquipmentManager;
+    public PlayerInventoryManager playerInventoryManager;
 
     [Header("Flags")]
     public bool isPerformingAction;
     public bool isPerformingQuickTurn;
     public bool disableRootMotion;
     public bool isAiming;
+    public bool canInteract;
 
     private void Awake()
     {
@@ -26,6 +34,8 @@ public class PlayerManager : MonoBehaviour
         anim = GetComponent<Animator>();
         playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
         animationManager = GetComponent<AnimationManager>();
+        audioSource = GetComponent<AudioSource>();
+        playerInventoryManager = GetComponent<PlayerInventoryManager>();
     }
 
     private void Update()
@@ -52,7 +62,22 @@ public class PlayerManager : MonoBehaviour
     {
         if (isPerformingAction) return;
 
-        animationManager.PlayAnimationWithOutRootMotion("Pistol_Shoot", true);
-        playerEquipmentManager.weaponAnimator.ShootWeapon(playerCamera);
+        if (playerEquipmentManager.weapon.remainingAmmo > 0)
+        {
+            playerEquipmentManager.weapon.remainingAmmo -= 1;
+            playerUIManager.currentAmmoCountText.text = playerEquipmentManager.weapon.remainingAmmo.ToString();
+            animationManager.PlayAnimationWithOutRootMotion("Pistol_Shoot", true);
+            playerEquipmentManager.weaponAnimator.ShootWeapon(playerCamera);
+        }
+        else
+        {
+            PlayClip(0);
+        }
+    }
+
+    public void PlayClip(int clip)
+    {
+        audioSource.clip = audioClips[clip];
+        audioSource.Play();
     }
 }

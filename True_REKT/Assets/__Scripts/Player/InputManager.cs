@@ -25,6 +25,8 @@ public class InputManager : MonoBehaviour
     public bool quickTurnInput;
     public bool aimingInput;
     public bool shootInput;
+    public bool reloadInput;
+    public bool interactionInput;
 
     private void Awake()
     {
@@ -52,6 +54,8 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Aim.canceled += i => aimingInput = false; 
             playerControls.PlayerActions.Shoot.performed += i => shootInput = true;
             playerControls.PlayerActions.Shoot.canceled += i => shootInput = false;
+            playerControls.PlayerActions.Reload.performed += i => reloadInput = true;
+            playerControls.PlayerActions.Interact.performed += i => interactionInput = true;
         }
 
         playerControls.Enable();
@@ -69,6 +73,8 @@ public class InputManager : MonoBehaviour
         HandleQuickTurnInput();
         HandleAimInput();
         HandleShootingInput();
+        HandleReloadInput();
+        HandleInteractionInput();
     }
 
     private void HandleMovementInput()
@@ -137,6 +143,65 @@ public class InputManager : MonoBehaviour
         {
             shootInput = false;
             playerManager.UseCurrentWeapon();
+        }
+    }
+
+    private void HandleReloadInput()
+    {
+        if (playerManager.isPerformingAction) return;
+
+        if (reloadInput)
+        {
+            reloadInput = false;
+
+            //Check if weapon is curently full
+            if (playerManager.playerEquipmentManager.weapon.remainingAmmo == playerManager.playerEquipmentManager.weapon.maxAmmo) return;
+
+            //Check if we have corect ammo type to reload our weapon
+            if (playerManager.playerInventoryManager.currentAmmoInInventory != null)
+            {
+                if (playerManager.playerInventoryManager.currentAmmoInInventory.ammoType == playerManager.playerEquipmentManager.weapon.ammoType)
+                {
+                    if (playerManager.playerInventoryManager.currentAmmoInInventory.ammoRemaining == 0) return;
+
+
+                    int amoutOfAmmoToReload;
+                    amoutOfAmmoToReload = playerManager.playerEquipmentManager.weapon.maxAmmo - playerManager.playerEquipmentManager.weapon.remainingAmmo;
+
+                    //Situation when we have more ammo than we need to full reload gun.
+                    if (playerManager.playerInventoryManager.currentAmmoInInventory.ammoRemaining >= amoutOfAmmoToReload)
+                    {
+                        playerManager.playerEquipmentManager.weapon.remainingAmmo += amoutOfAmmoToReload;
+                        playerManager.playerInventoryManager.currentAmmoInInventory.ammoRemaining =
+                            playerManager.playerInventoryManager.currentAmmoInInventory.ammoRemaining - amoutOfAmmoToReload;
+                    }
+                    //Situation when we have less ammo than we need to full reload gun.
+                    else
+                    {
+                        playerManager.playerEquipmentManager.weapon.remainingAmmo = playerManager.playerInventoryManager.currentAmmoInInventory.ammoRemaining;
+                        playerManager.playerInventoryManager.currentAmmoInInventory.ammoRemaining = 0;
+                    }
+
+                    playerManager.animationManager.ClearHandIKWeights();
+                    playerManager.animationManager.PlayAnimation("Reloading", true);
+
+                    //Replace in future when equipment were finished.
+                    playerManager.PlayClip(1);
+                    playerManager.playerUIManager.currentAmmoCountText.text = playerManager.playerEquipmentManager.weapon.remainingAmmo.ToString();
+                    playerManager.playerUIManager.reserveAmmoCountText.text = playerManager.playerInventoryManager.currentAmmoInInventory.ammoRemaining.ToString();
+                }
+            }
+        }
+    }
+
+    private void HandleInteractionInput()
+    {
+        if (interactionInput)
+        {
+            if (!playerManager.canInteract)
+            {
+                interactionInput = false;
+            }
         }
     }
 }

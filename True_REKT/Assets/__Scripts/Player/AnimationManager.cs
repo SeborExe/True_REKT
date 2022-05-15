@@ -39,6 +39,13 @@ public class AnimationManager : MonoBehaviour
         animator.CrossFade(targetAnimation, 0.2f);
     }
 
+    public void PlayAnimation(string targetAnimation, bool isPerformingAction)
+    {
+        animator.SetBool("isPerformingAction", isPerformingAction);
+        animator.SetBool("disableRootMotion", true);
+        animator.CrossFade(targetAnimation, 0.2f);
+    }
+
     public void HandleAnimatorValues(float horizontalMovement, float verticalMovement, bool isRunning)
     {
         #region snapping values
@@ -75,6 +82,24 @@ public class AnimationManager : MonoBehaviour
         rightHandIK.data.target = rightTarget.transform;
         leftHandIK.data.target = leftTarget.transform;
         rigBuilder.Build();
+    }
+
+    public void ClearHandIKWeights()
+    {
+        rightHandIK.data.targetPositionWeight = 0;
+        rightHandIK.data.targetRotationWeight = 0;
+
+        leftHandIK.data.targetPositionWeight = 0;
+        leftHandIK.data.targetRotationWeight = 0;
+    }
+
+    public void RefreshHandIKWeights()
+    {
+        rightHandIK.data.targetPositionWeight = 1;
+        rightHandIK.data.targetRotationWeight = 1;
+
+        leftHandIK.data.targetPositionWeight = 1;
+        leftHandIK.data.targetRotationWeight = 1;
     }
 
     public void UpdateAimConstrains()

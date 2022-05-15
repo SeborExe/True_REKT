@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerEquipmentManager : MonoBehaviour
 {
     WeaponLoaderSlot weaponLoaderSlot;
-    AnimationManager animationManager;
+    PlayerManager playerManager;
 
     [Header("Current equipment")]
     public WeaponItem weapon;
@@ -16,7 +16,7 @@ public class PlayerEquipmentManager : MonoBehaviour
 
     private void Awake()
     {
-        animationManager = GetComponent<AnimationManager>();
+        playerManager = GetComponent<PlayerManager>();
         LoadWeaponLoaderSlots();
     }
 
@@ -35,10 +35,19 @@ public class PlayerEquipmentManager : MonoBehaviour
     private void LoadCurrentWeapon()
     {
         weaponLoaderSlot.LoadWeaponModel(weapon);
-        animationManager.animator.runtimeAnimatorController = weapon.weaponAnimator;
+        playerManager.animationManager.animator.runtimeAnimatorController = weapon.weaponAnimator;
         weaponAnimator = weaponLoaderSlot.currentWeaponModel.GetComponentInChildren<WeaponAnimatorManager>();
         rightHandIK = weaponLoaderSlot.currentWeaponModel.GetComponentInChildren<RightHandIKTarget>();
         leftHandIK = weaponLoaderSlot.currentWeaponModel.GetComponentInChildren<LeftHandIKTarget>();
-        animationManager.AssignHandIK(rightHandIK, leftHandIK);
+        playerManager.animationManager.AssignHandIK(rightHandIK, leftHandIK);
+        playerManager.playerUIManager.currentAmmoCountText.text = weapon.remainingAmmo.ToString();
+
+        if (playerManager.playerInventoryManager.currentAmmoInInventory != null)
+        {
+            if (playerManager.playerInventoryManager.currentAmmoInInventory.ammoType == weapon.ammoType)
+            {
+                playerManager.playerUIManager.reserveAmmoCountText.text = playerManager.playerInventoryManager.currentAmmoInInventory.ammoRemaining.ToString();
+            }
+        }
     }
 }
