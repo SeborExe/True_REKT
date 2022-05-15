@@ -26,6 +26,7 @@ public class InputManager : MonoBehaviour
     public bool aimingInput;
     public bool shootInput;
     public bool reloadInput;
+    public bool interactionInput;
 
     private void Awake()
     {
@@ -54,6 +55,7 @@ public class InputManager : MonoBehaviour
             playerControls.PlayerActions.Shoot.performed += i => shootInput = true;
             playerControls.PlayerActions.Shoot.canceled += i => shootInput = false;
             playerControls.PlayerActions.Reload.performed += i => reloadInput = true;
+            playerControls.PlayerActions.Interact.performed += i => interactionInput = true;
         }
 
         playerControls.Enable();
@@ -72,6 +74,7 @@ public class InputManager : MonoBehaviour
         HandleAimInput();
         HandleShootingInput();
         HandleReloadInput();
+        HandleInteractionInput();
     }
 
     private void HandleMovementInput()
@@ -161,6 +164,7 @@ public class InputManager : MonoBehaviour
                 {
                     if (playerManager.playerInventoryManager.currentAmmoInInventory.ammoRemaining == 0) return;
 
+
                     int amoutOfAmmoToReload;
                     amoutOfAmmoToReload = playerManager.playerEquipmentManager.weapon.maxAmmo - playerManager.playerEquipmentManager.weapon.remainingAmmo;
 
@@ -186,6 +190,17 @@ public class InputManager : MonoBehaviour
                     playerManager.playerUIManager.currentAmmoCountText.text = playerManager.playerEquipmentManager.weapon.remainingAmmo.ToString();
                     playerManager.playerUIManager.reserveAmmoCountText.text = playerManager.playerInventoryManager.currentAmmoInInventory.ammoRemaining.ToString();
                 }
+            }
+        }
+    }
+
+    private void HandleInteractionInput()
+    {
+        if (interactionInput)
+        {
+            if (!playerManager.canInteract)
+            {
+                interactionInput = false;
             }
         }
     }

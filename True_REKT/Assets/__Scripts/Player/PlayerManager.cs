@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    InputManager inputManager;
-
     AudioSource audioSource;
     Animator anim;
     
@@ -14,6 +12,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] AudioClip[] audioClips;
 
     [Header("Typical dynamic")]
+    public InputManager inputManager;
     public PlayerLocomotionManager playerLocomotionManager;
     public PlayerCamera playerCamera;
     public AnimationManager animationManager;
@@ -25,6 +24,7 @@ public class PlayerManager : MonoBehaviour
     public bool isPerformingQuickTurn;
     public bool disableRootMotion;
     public bool isAiming;
+    public bool canInteract;
 
     private void Awake()
     {
