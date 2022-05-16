@@ -18,8 +18,12 @@ public class InteractableObjects : MonoBehaviour
 
         if (player != null)
         {
-            interactableCanvas.SetActive(true);
             player.canInteract = true;
+
+            if (interactableCanvas != null)
+            {
+                interactableCanvas.SetActive(true);
+            }
         }
     }
 
@@ -44,8 +48,12 @@ public class InteractableObjects : MonoBehaviour
 
         if (player != null)
         {
-            interactableCanvas.SetActive(false);
             player.canInteract = false;
+
+            if (interactableCanvas != null)
+            {
+                interactableCanvas.SetActive(false);
+            }
         }
     }
 
