@@ -5,7 +5,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     PlayerControls playerControls;
-    AnimationManager animationManager;
+    PlayerAnimationManager animationManager;
     PlayerManager playerManager;
     Animator anim;
     PlayerUIManager playerUIManager;
@@ -30,7 +30,7 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        animationManager = GetComponent<AnimationManager>();
+        animationManager = GetComponent<PlayerAnimationManager>();
         playerManager = GetComponent<PlayerManager>();
         anim = GetComponent<Animator>();
         playerUIManager = FindObjectOfType<PlayerUIManager>();
@@ -182,8 +182,8 @@ public class InputManager : MonoBehaviour
                         playerManager.playerInventoryManager.currentAmmoInInventory.ammoRemaining = 0;
                     }
 
-                    playerManager.animationManager.ClearHandIKWeights();
-                    playerManager.animationManager.PlayAnimation("Reloading", true);
+                    playerManager.playerAnimationManager.ClearHandIKWeights();
+                    playerManager.playerAnimationManager.PlayAnimation("Reloading", true);
 
                     //Replace in future when equipment were finished.
                     playerManager.PlayClip(1);

@@ -4,24 +4,31 @@ using UnityEngine;
 
 public class ZombieAnimatorManager : MonoBehaviour
 {
-    ZombieManager zombieManager;
+    ZombieManager zombie;
 
     private void Awake()
     {
-        zombieManager = GetComponent<ZombieManager>();
+        zombie = GetComponent<ZombieManager>();
+    }
+
+    public void PlayGrappleAnimation(string grappleAnimation, bool useRootMotion)
+    {
+        zombie.animator.applyRootMotion = useRootMotion;
+        zombie.isPerformingAction = true;
+        zombie.animator.CrossFade(grappleAnimation, 0.2f);
     }
 
     public void PlayTargetAttackAnimation(string attackAnimation)
     {
-        zombieManager.animator.applyRootMotion = true;
-        zombieManager.isPerformingAction = true;
-        zombieManager.animator.CrossFade(attackAnimation, 0.2f);
+        zombie.animator.applyRootMotion = true;
+        zombie.isPerformingAction = true;
+        zombie.animator.CrossFade(attackAnimation, 0.2f);
     }
 
     public void PlayTargetAnimation(string animation)
     {
-        zombieManager.animator.applyRootMotion = true;
-        zombieManager.isPerformingAction = true;
-        zombieManager.animator.CrossFade(animation, 0.2f);
+        zombie.animator.applyRootMotion = true;
+        zombie.isPerformingAction = true;
+        zombie.animator.CrossFade(animation, 0.2f);
     }
 }
