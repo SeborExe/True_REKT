@@ -6,9 +6,11 @@ public class ZombieCombatManager : MonoBehaviour
 {
     ZombieGrappleCollider rightGrappleCollider;
     ZombieGrappleCollider leftGrappleCollider;
+    ZombieManager zombie;
 
     private void Awake()
     {
+        zombie = GetComponent<ZombieManager>();
         LoadGrappleColliders();
     }
 
@@ -39,5 +41,15 @@ public class ZombieCombatManager : MonoBehaviour
     {
         rightGrappleCollider.grappleCollider.enabled = false;
         leftGrappleCollider.grappleCollider.enabled = false;
+    }
+
+    public void EnableRotationDuringAttack()
+    {
+        zombie.canRotate = true;
+    }
+
+    public void DisableRotationDuringAttack()
+    {
+        zombie.canRotate = false;
     }
 }

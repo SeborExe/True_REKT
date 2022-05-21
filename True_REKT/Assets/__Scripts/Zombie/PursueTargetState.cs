@@ -15,6 +15,7 @@ public class PursueTargetState : State
     {
         if (zombieManager.isPerformingAction)
         {
+            RotateTowardTargetWhileAttacking(zombieManager);
             zombieManager.animator.SetFloat("Vertical", 0, 0.2f, Time.deltaTime);
             return this;
         }
@@ -39,13 +40,35 @@ public class PursueTargetState : State
         zombieManager.animator.SetFloat("Vertical", 1, 0.2f, Time.deltaTime);
     }
 
+    //This rotation method use nav mesh agent
     private void RotateTowardsTarget(ZombieManager zombieManager)
     {
-        zombieManager.zombieNavMeshAgent.enabled = true;
-        zombieManager.zombieNavMeshAgent.SetDestination(zombieManager.currentTarget.transform.position);
-        zombieManager.transform.rotation = Quaternion.Slerp(
-            zombieManager.transform.rotation,
-            zombieManager.zombieNavMeshAgent.transform.rotation,
-            zombieManager.rotationSpeed / Time.deltaTime);
+        if (zombieManager.canRotate)
+        {
+            zombieManager.zombieNavMeshAgent.enabled = true;
+            zombieManager.zombieNavMeshAgent.SetDestination(zombieManager.currentTarget.transform.position);
+            zombieManager.transform.rotation = Quaternion.Slerp(
+                zombieManager.transform.rotation,
+                zombieManager.zombieNavMeshAgent.transform.rotation,
+                zombieManager.rotationSpeed / Time.deltaTime);
+        }
+    }
+
+    private void RotateTowardTargetWhileAttacking(ZombieManager zombieManager)
+    {
+        if (zombieManager.canRotate)
+        {
+            Vector3 direction = zombieManager.currentTarget.transform.position - zombieManager.transform.position;
+            direction.y = 0;
+            direction.Normalize();
+
+            if (direction == Vector3.zero)
+            {
+                direction = zombieManager.transform.forward;
+            }
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            zombieManager.transform.rotation = Quaternion.Slerp(zombieManager.transform.rotation, targetRotation, zombieManager.rotationSpeed * Time.deltaTime);
+        }
     }
 }

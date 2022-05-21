@@ -16,6 +16,7 @@ public class ZombieManager : MonoBehaviour
     [Header("Flags")]
     public bool isPerformingAction;
     public bool isDead;
+    public bool canRotate;
 
     [Header("Typical dynamic")]
     public Animator animator;
