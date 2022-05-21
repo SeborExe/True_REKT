@@ -26,6 +26,8 @@ public class ZombieStatsManager : MonoBehaviour
 
     public void DealHeadShootDamage(int damage)
     {
+        if (zombie.isDead) return;
+
         headHealth = headHealth - Mathf.RoundToInt(damage * headShotDamageMultiplier);
         overallHealth = overallHealth - Mathf.RoundToInt(damage * headShotDamageMultiplier);
         CheckForDeath();
@@ -33,6 +35,8 @@ public class ZombieStatsManager : MonoBehaviour
 
     public void DealTorsoDamage(int damage)
     {
+        if (zombie.isDead) return;
+
         torsoHealth -= damage;
         overallHealth -= damage;
         CheckForDeath();
@@ -40,6 +44,8 @@ public class ZombieStatsManager : MonoBehaviour
 
     public void DealArmDamage(bool leftArmDamage, int damage)
     {
+        if (zombie.isDead) return;
+
         if (leftArmDamage)
         {
             leftArmHealth -= damage;
@@ -54,6 +60,8 @@ public class ZombieStatsManager : MonoBehaviour
 
     public void DealLegDamage(bool leftLegDamage, int damage)
     {
+        if (zombie.isDead) return;
+
         if (leftLegDamage)
         {
             leftLegHealth -= damage;

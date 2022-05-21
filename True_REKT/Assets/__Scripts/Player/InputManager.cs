@@ -5,7 +5,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     PlayerControls playerControls;
-    AnimationManager animationManager;
+    PlayerAnimationManager animationManager;
     PlayerManager playerManager;
     Animator anim;
     PlayerUIManager playerUIManager;
@@ -30,7 +30,7 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        animationManager = GetComponent<AnimationManager>();
+        animationManager = GetComponent<PlayerAnimationManager>();
         playerManager = GetComponent<PlayerManager>();
         anim = GetComponent<Animator>();
         playerUIManager = FindObjectOfType<PlayerUIManager>();
@@ -153,6 +153,7 @@ public class InputManager : MonoBehaviour
         if (reloadInput)
         {
             reloadInput = false;
+            animationManager.ChangeColliderHeightWhenActionStart();
 
             //Check if weapon is curently full
             if (playerManager.playerEquipmentManager.weapon.remainingAmmo == playerManager.playerEquipmentManager.weapon.maxAmmo) return;
@@ -182,8 +183,9 @@ public class InputManager : MonoBehaviour
                         playerManager.playerInventoryManager.currentAmmoInInventory.ammoRemaining = 0;
                     }
 
-                    playerManager.animationManager.ClearHandIKWeights();
-                    playerManager.animationManager.PlayAnimation("Reloading", true);
+                    playerManager.playerAnimationManager.ClearHandIKWeights();
+                    playerManager.playerAnimationManager.PlayAnimation("Reloading", true);
+                    StartCoroutine(RefreshHandIK());
 
                     //Replace in future when equipment were finished.
                     playerManager.PlayClip(1);
@@ -192,6 +194,12 @@ public class InputManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public IEnumerator RefreshHandIK()
+    {
+        yield return new WaitForSeconds(1f);
+        playerManager.playerAnimationManager.RefreshHandIKWeights();
     }
 
     private void HandleInteractionInput()

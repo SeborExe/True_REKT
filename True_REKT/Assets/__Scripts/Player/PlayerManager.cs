@@ -15,7 +15,7 @@ public class PlayerManager : MonoBehaviour
     public InputManager inputManager;
     public PlayerLocomotionManager playerLocomotionManager;
     public PlayerCamera playerCamera;
-    public AnimationManager animationManager;
+    public PlayerAnimationManager playerAnimationManager;
     public PlayerEquipmentManager playerEquipmentManager;
     public PlayerInventoryManager playerInventoryManager;
 
@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviour
         playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
         anim = GetComponent<Animator>();
         playerEquipmentManager = GetComponent<PlayerEquipmentManager>();
-        animationManager = GetComponent<AnimationManager>();
+        playerAnimationManager = GetComponent<PlayerAnimationManager>();
         audioSource = GetComponent<AudioSource>();
         playerInventoryManager = GetComponent<PlayerInventoryManager>();
     }
@@ -64,9 +64,10 @@ public class PlayerManager : MonoBehaviour
 
         if (playerEquipmentManager.weapon.remainingAmmo > 0)
         {
+            playerAnimationManager.ChangeColliderHeightWhenActionStart();
             playerEquipmentManager.weapon.remainingAmmo -= 1;
             playerUIManager.currentAmmoCountText.text = playerEquipmentManager.weapon.remainingAmmo.ToString();
-            animationManager.PlayAnimationWithOutRootMotion("Pistol_Shoot", true);
+            playerAnimationManager.PlayAnimationWithOutRootMotion("Pistol_Shoot", true);
             playerEquipmentManager.weaponAnimator.ShootWeapon(playerCamera);
         }
         else

@@ -12,6 +12,7 @@ public class ResetAnimationBoolZombie : StateMachineBehaviour
         if (zombieManager != null)
         {
             zombieManager.isPerformingAction = false;
+            zombieManager.canRotate = true;
         }
     }
 

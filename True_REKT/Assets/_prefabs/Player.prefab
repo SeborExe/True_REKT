@@ -1873,7 +1873,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4432489585327975054}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be03253067f26c7408b56897ae94b705, type: 3}
+  m_Script: {fileID: 11500000, guid: e178d2a88139f85418e201e5786998fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
@@ -1894,10 +1894,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6a826c839b5d7409c67a856a6b94f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerUIManager: {fileID: 0}
+  audioClips: []
+  inputManager: {fileID: 0}
+  playerLocomotionManager: {fileID: 0}
+  playerCamera: {fileID: 0}
+  playerAnimationManager: {fileID: 0}
+  playerEquipmentManager: {fileID: 0}
+  playerInventoryManager: {fileID: 0}
   isPerformingAction: 0
   isPerformingQuickTurn: 0
   disableRootMotion: 0
   isAiming: 0
+  canInteract: 0
 --- !u!114 &1349406257001942491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1918,6 +1927,8 @@ MonoBehaviour:
   quickTurnInput: 0
   aimingInput: 0
   shootInput: 0
+  reloadInput: 0
+  interactionInput: 0
 --- !u!114 &1349406257001942484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1934,6 +1945,14 @@ MonoBehaviour:
   cameraHolderTransform: {fileID: 0}
   rotationSpeed: 3.5
   quickTurnSpeed: 8
+  inAirTimer: 0
+  leapingVelocity: 3
+  fallingVelocity: 35
+  raycastHeightOffset: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isGrounded: 1
 --- !u!114 &1349406257001942485
 MonoBehaviour:
   m_ObjectHideFlags: 0

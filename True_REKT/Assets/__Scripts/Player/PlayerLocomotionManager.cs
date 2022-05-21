@@ -79,7 +79,7 @@ public class PlayerLocomotionManager : MonoBehaviour
         {
             if (!playerManager.isPerformingAction)
             {
-                playerManager.animationManager.PlayAnimation("Falling", true);
+                playerManager.playerAnimationManager.PlayAnimation("Falling", true);
             }
 
             inAirTimer += Time.deltaTime;
@@ -91,7 +91,7 @@ public class PlayerLocomotionManager : MonoBehaviour
         {
             if (!isGrounded)
             {
-                playerManager.animationManager.PlayAnimation("Land", true);
+                playerManager.playerAnimationManager.PlayAnimation("Land", true);
             }
 
             Vector3 rayCastHitPoint = hit.point;
@@ -106,7 +106,7 @@ public class PlayerLocomotionManager : MonoBehaviour
 
         if (isGrounded)
         {
-            if (playerManager.isPerformingAction || inputManager.verticalMovementInput > 0)
+            if (playerManager.isPerformingAction)
             {
                 transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime / 0.1f);
             }
