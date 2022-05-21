@@ -153,6 +153,7 @@ public class InputManager : MonoBehaviour
         if (reloadInput)
         {
             reloadInput = false;
+            animationManager.ChangeColliderHeightWhenActionStart();
 
             //Check if weapon is curently full
             if (playerManager.playerEquipmentManager.weapon.remainingAmmo == playerManager.playerEquipmentManager.weapon.maxAmmo) return;
@@ -184,6 +185,7 @@ public class InputManager : MonoBehaviour
 
                     playerManager.playerAnimationManager.ClearHandIKWeights();
                     playerManager.playerAnimationManager.PlayAnimation("Reloading", true);
+                    StartCoroutine(RefreshHandIK());
 
                     //Replace in future when equipment were finished.
                     playerManager.PlayClip(1);
@@ -192,6 +194,12 @@ public class InputManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public IEnumerator RefreshHandIK()
+    {
+        yield return new WaitForSeconds(1f);
+        playerManager.playerAnimationManager.RefreshHandIKWeights();
     }
 
     private void HandleInteractionInput()

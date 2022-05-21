@@ -106,7 +106,7 @@ public class PlayerLocomotionManager : MonoBehaviour
 
         if (isGrounded)
         {
-            if (playerManager.isPerformingAction || inputManager.verticalMovementInput > 0)
+            if (playerManager.isPerformingAction)
             {
                 transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime / 0.1f);
             }

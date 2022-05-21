@@ -15,5 +15,5 @@ MonoBehaviour:
   name: Handgun Ammo
   itemModel: {fileID: 0}
   ammoType: 0
-  ammoRemaining: 12
+  ammoRemaining: 13
   boxOfAmmoCapacity: 50

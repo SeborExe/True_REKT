@@ -6957,10 +6957,18 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.00854057
       objectReference: {fileID: 0}
+    - target: {fileID: 4886573265279313842, guid: 2d04f9902fcda1741b431c5e7f614726, type: 3}
+      propertyPath: m_Weight
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 4886573265333218509, guid: 2d04f9902fcda1741b431c5e7f614726, type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 1695635407}
+    - target: {fileID: 4886573265383112942, guid: 2d04f9902fcda1741b431c5e7f614726, type: 3}
+      propertyPath: m_Weight
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 4886573265855171788, guid: 2d04f9902fcda1741b431c5e7f614726, type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
@@ -7264,6 +7272,15 @@ PrefabInstance:
     - target: {fileID: 6877757295684105538, guid: 2d04f9902fcda1741b431c5e7f614726, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.06307059
+      objectReference: {fileID: 0}
+    - target: {fileID: 6928965817884879438, guid: 2d04f9902fcda1741b431c5e7f614726, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'mixamorig9:Spine2'\n\tTransform 'mixamorig9:Head'\n\tTransform
+        'mixamorig9:Spine'\n\tTransform 'mixamorig9:Spine1'\n\tTransform 'mixamorig9:Neck'\n\tTransform
+        'mixamorig9:Spine2'\n\tTransform 'mixamorig9:Head'\n\tTransform 'mixamorig9:Spine'\n\tTransform
+        'mixamorig9:Spine1'\n\tTransform 'mixamorig9:Neck'\n\tand more ..."
       objectReference: {fileID: 0}
     - target: {fileID: 6936946252633391044, guid: 2d04f9902fcda1741b431c5e7f614726, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7847,7 +7864,7 @@ MonoBehaviour:
   wiewableAngleFromCurrentTarget: 0
   targetsDirections: {x: 0, y: 0, z: 0}
   minimumAttackDistance: 0.1
-  maximumAttackDistance: 4
+  maximumAttackDistance: 2
   attackCooldownTimer: 0
 --- !u!136 &5376486900860484149
 CapsuleCollider:

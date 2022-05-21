@@ -64,6 +64,7 @@ public class PlayerManager : MonoBehaviour
 
         if (playerEquipmentManager.weapon.remainingAmmo > 0)
         {
+            playerAnimationManager.ChangeColliderHeightWhenActionStart();
             playerEquipmentManager.weapon.remainingAmmo -= 1;
             playerUIManager.currentAmmoCountText.text = playerEquipmentManager.weapon.remainingAmmo.ToString();
             playerAnimationManager.PlayAnimationWithOutRootMotion("Pistol_Shoot", true);

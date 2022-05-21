@@ -19,6 +19,7 @@ public class PlayerAnimationManager : MonoBehaviour
     PlayerLocomotionManager playerLocomotionManager;
     PlayerManager playerManager;
     RigBuilder rigBuilder;
+    CapsuleCollider collider;
 
     float snappedHorizontal;
     float snappedVertical;
@@ -29,6 +30,7 @@ public class PlayerAnimationManager : MonoBehaviour
         playerLocomotionManager = GetComponent<PlayerLocomotionManager>();
         playerManager = GetComponent<PlayerManager>();
         rigBuilder = GetComponent<RigBuilder>();
+        collider = GetComponent<CapsuleCollider>();
     }
 
     public void PlayAnimationWithOutRootMotion(string targetAnimation, bool isPerformingAction)
@@ -100,6 +102,16 @@ public class PlayerAnimationManager : MonoBehaviour
 
         leftHandIK.data.targetPositionWeight = 1;
         leftHandIK.data.targetRotationWeight = 1;
+    }
+
+    public void ChangeColliderHeightWhenActionStart()
+    {
+        collider.height = 2f;
+    }
+
+    public void ChangeColliderHeightWhenActionEnd()
+    {
+        collider.height = 1.6f;
     }
 
     public void UpdateAimConstrains()
