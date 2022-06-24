@@ -30,6 +30,8 @@ public class ZombieGrappleCollider : MonoBehaviour
                     zombie.animator.SetFloat("Vertical", 0);
 
                     player.playerAnimationManager.PlayAnimation("Player_Grapple_01", true);
+                    player.playerStatsManager.pendingDamage = zombie.zombieCombatManager.grappleBiteDamage;
+                    player.playerAnimationManager.ClearHandIKWeights();
 
                     //Make zombie face to his victiom
                     Quaternion targetZombieRotation = Quaternion.LookRotation(player.transform.position - zombie.transform.position);
