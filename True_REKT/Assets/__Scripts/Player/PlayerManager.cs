@@ -18,6 +18,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerAnimationManager playerAnimationManager;
     public PlayerEquipmentManager playerEquipmentManager;
     public PlayerInventoryManager playerInventoryManager;
+    public PlayerStatsManager playerStatsManager;
 
     [Header("Flags")]
     public bool isPerformingAction;
@@ -25,6 +26,9 @@ public class PlayerManager : MonoBehaviour
     public bool disableRootMotion;
     public bool isAiming;
     public bool canInteract;
+
+    [Header("Status")]
+    public bool isDead;
 
     private void Awake()
     {
@@ -36,6 +40,7 @@ public class PlayerManager : MonoBehaviour
         playerAnimationManager = GetComponent<PlayerAnimationManager>();
         audioSource = GetComponent<AudioSource>();
         playerInventoryManager = GetComponent<PlayerInventoryManager>();
+        playerStatsManager = GetComponent<PlayerStatsManager>();
     }
 
     private void Update()
@@ -46,6 +51,7 @@ public class PlayerManager : MonoBehaviour
         isPerformingQuickTurn = anim.GetBool("isPerformingQuickTurn");
         disableRootMotion = anim.GetBool("disableRootMotion");
         isAiming = anim.GetBool("isAiming");
+        anim.SetBool("isDead", isDead);
     }
 
     private void FixedUpdate()

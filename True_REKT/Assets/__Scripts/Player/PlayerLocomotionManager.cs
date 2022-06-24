@@ -80,6 +80,7 @@ public class PlayerLocomotionManager : MonoBehaviour
             if (!playerManager.isPerformingAction)
             {
                 playerManager.playerAnimationManager.PlayAnimation("Falling", true);
+                playerManager.playerAnimationManager.ClearHandIKWeights();
             }
 
             inAirTimer += Time.deltaTime;
@@ -92,6 +93,7 @@ public class PlayerLocomotionManager : MonoBehaviour
             if (!isGrounded)
             {
                 playerManager.playerAnimationManager.PlayAnimation("Land", true);
+                playerManager.playerAnimationManager.ClearHandIKWeights();
             }
 
             Vector3 rayCastHitPoint = hit.point;

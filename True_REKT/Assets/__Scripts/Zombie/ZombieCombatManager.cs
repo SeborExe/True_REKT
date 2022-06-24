@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ZombieCombatManager : MonoBehaviour
 {
+    [Header("Attack Damage")]
+    public int grappleBiteDamage = 33;
+
     ZombieGrappleCollider rightGrappleCollider;
     ZombieGrappleCollider leftGrappleCollider;
     ZombieManager zombie;

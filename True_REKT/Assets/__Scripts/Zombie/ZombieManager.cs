@@ -12,6 +12,7 @@ public class ZombieManager : MonoBehaviour
     public Rigidbody zombieRigidbody;
     public ZombieAnimatorManager zombieAnimatorManager;
     public ZombieStatsManager zombieStatsManager;
+    public ZombieCombatManager zombieCombatManager;
 
     [Header("Flags")]
     public bool isPerformingAction;
@@ -41,6 +42,7 @@ public class ZombieManager : MonoBehaviour
         zombieRigidbody = GetComponent<Rigidbody>();
         zombieAnimatorManager = GetComponent<ZombieAnimatorManager>();
         zombieStatsManager = GetComponent<ZombieStatsManager>();
+        zombieCombatManager = GetComponent<ZombieCombatManager>();
     }
 
     private void FixedUpdate()
