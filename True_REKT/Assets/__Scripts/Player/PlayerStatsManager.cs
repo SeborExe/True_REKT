@@ -35,5 +35,9 @@ public class PlayerStatsManager : MonoBehaviour
         {
             KillPlayer();
         }
+        else
+        {
+            playerManager.playerUIManager.DisplayHealthPopUp();
+        }
     }
 }
